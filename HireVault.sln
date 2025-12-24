@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireVault.Web", "HireVault.Web\HireVault.Web.csproj", "{8A73F1BA-120E-4A34-98EF-CFB78CAC81E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireVault.Core", "HireVault.Core\HireVault.Core.csproj", "{DE9B578D-C659-40E5-B919-7D13482E170C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireVault.Infrastructure", "HireVault.Infrastructure\HireVault.Infrastructure.csproj", "{EA6054CE-E065-42CB-971E-CDF5862D8AA2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A73F1BA-120E-4A34-98EF-CFB78CAC81E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A73F1BA-120E-4A34-98EF-CFB78CAC81E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A73F1BA-120E-4A34-98EF-CFB78CAC81E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A73F1BA-120E-4A34-98EF-CFB78CAC81E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9B578D-C659-40E5-B919-7D13482E170C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9B578D-C659-40E5-B919-7D13482E170C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9B578D-C659-40E5-B919-7D13482E170C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9B578D-C659-40E5-B919-7D13482E170C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6054CE-E065-42CB-971E-CDF5862D8AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6054CE-E065-42CB-971E-CDF5862D8AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6054CE-E065-42CB-971E-CDF5862D8AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6054CE-E065-42CB-971E-CDF5862D8AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

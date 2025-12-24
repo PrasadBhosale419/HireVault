@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZXh1vwjTPS4=",
+  "success": true,
+  "projectFilePath": "/Users/bhosalep/Documents/HireVault/HireVault.Web/HireVault.Web.csproj",
+  "expectedPackageFiles": [
+    "/Users/bhosalep/.nuget/packages/awssdk.core/4.0.3.6/awssdk.core.4.0.3.6.nupkg.sha512",
+    "/Users/bhosalep/.nuget/packages/awssdk.secretsmanager/4.0.4.1/awssdk.secretsmanager.4.0.4.1.nupkg.sha512"
+  ],
+  "logs": []
+}
