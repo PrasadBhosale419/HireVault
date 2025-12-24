@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HireVault.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22f8ea4f6b974ee0473bf7c85ac8452e294b08ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d2a1abf92b21c1e6ab17e2c8020e7c1aa6d145f")]
 [assembly: System.Reflection.AssemblyProductAttribute("HireVault.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HireVault.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

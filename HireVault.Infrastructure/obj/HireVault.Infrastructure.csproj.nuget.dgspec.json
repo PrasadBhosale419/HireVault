@@ -4,6 +4,77 @@
     "/Users/bhosalep/Documents/HireVault/HireVault.Infrastructure/HireVault.Infrastructure.csproj": {}
   },
   "projects": {
+    "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj",
+        "projectName": "HireVault.Core",
+        "projectPath": "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj",
+        "packagesPath": "/Users/bhosalep/.nuget/packages/",
+        "outputPath": "/Users/bhosalep/Documents/HireVault/HireVault.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/bhosalep/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU1605"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[3.7.105.18, )"
+            },
+            "AWSSDK.SecretsManager": {
+              "target": "Package",
+              "version": "[3.7.102.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.416/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/bhosalep/Documents/HireVault/HireVault.Infrastructure/HireVault.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -25,7 +96,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj": {
+                "projectPath": "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -45,17 +120,27 @@
           "dependencies": {
             "AWSSDK.CognitoIdentityProvider": {
               "target": "Package",
-              "version": "[4.0.4.8, )"
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[3.7.300, )"
             },
             "AWSSDK.S3": {
               "target": "Package",
-              "version": "[4.0.16, )"
+              "version": "[3.7.300, )"
             },
             "AWSSDK.SecretsManager": {
               "target": "Package",
-              "version": "[4.0.4.1, )"
+              "version": "[3.7.300, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
             },

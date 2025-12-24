@@ -1,12 +1,12 @@
+/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.deps.json
+/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.dll
+/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.pdb
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.csproj.AssemblyReference.cache
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.GeneratedMSBuildEditorConfig.editorconfig
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.AssemblyInfoInputs.cache
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.AssemblyInfo.cs
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.csproj.CoreCompileInputs.cache
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.sourcelink.json
-/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.deps.json
-/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.dll
-/Users/bhosalep/Documents/HireVault/HireVault.Core/bin/Debug/net8.0/HireVault.Core.pdb
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.dll
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/refint/HireVault.Core.dll
 /Users/bhosalep/Documents/HireVault/HireVault.Core/obj/Debug/net8.0/HireVault.Core.pdb
