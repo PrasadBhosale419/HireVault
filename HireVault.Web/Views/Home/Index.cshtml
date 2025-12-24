@@ -1,0 +1,154 @@
+@{
+    ViewData["Title"] = "HireVault - HR Document Verification Portal";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="row align-items-center hero-section py-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4">HR Document Verification Portal</h1>
+            <p class="lead mb-4">Streamline your candidate verification process with our secure document validation system.</p>
+            <div class="d-grid gap-3 d-sm-flex">
+                <a href="/Candidates" class="btn btn-primary btn-lg px-4 me-sm-3">View Candidates</a>
+                <a href="/Verification" class="btn btn-outline-secondary btn-lg px-4">Start Verification</a>
+            </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+            <img src="~/images/document-verification.svg" alt="Document verification illustration" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="row stats-section py-5 my-5">
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <h2 class="display-3 fw-bold text-primary">100%</h2>
+            <p class="lead">Secure Verification</p>
+        </div>
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <h2 class="display-3 fw-bold text-primary">24/7</h2>
+            <p class="lead">Accessibility</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 class="display-3 fw-bold text-primary">99.9%</h2>
+            <p class="lead">Uptime</p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row py-5 my-5">
+        <div class="col-12 text-center mb-5">
+            <h2 class="fw-bold">Document Verification Made Simple</h2>
+            <p class="lead text-muted">Efficient tools for HR professionals</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-file-earmark-check text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h4 class="h5 fw-bold">Document Validation</h4>
+                    <p class="text-muted">Verify the authenticity of candidate documents with our comprehensive validation tools.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-shield-lock text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h4 class="h5 fw-bold">Secure Storage</h4>
+                    <p class="text-muted">All documents are stored securely with enterprise-grade encryption.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-graph-up text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h4 class="h5 fw-bold">Analytics Dashboard</h4>
+                    <p class="text-muted">Track verification status and generate detailed reports.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="row py-5 my-5 bg-light rounded-3">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-4">Ready to streamline your verification process?</h2>
+            <p class="lead mb-4">Experience the future of HR document verification today.</p>
+            <a href="/Account/Login" class="btn btn-primary btn-lg px-5">Login to Get Started</a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .hero-section {
+            min-height: 70vh;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .stats-section {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(13, 110, 253, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animations
+            const animateOnScroll = (elements) => {
+                elements.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'all 0.6s ease-out';
+                });
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elements.forEach(element => observer.observe(element));
+            };
+
+            // Animate stats and features
+            const stats = document.querySelectorAll('.stats-section h2, .feature-icon, .card');
+            animateOnScroll(stats);
+        });
+    </script>
+}

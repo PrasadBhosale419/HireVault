@@ -1,0 +1,45 @@
+@model ConfirmEmailViewModel
+
+@{
+    ViewData["Title"] = "Confirm Email";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body">
+                <p>Please check your email for the confirmation code.</p>
+                
+                <form method="post" asp-controller="Account" asp-action="ConfirmEmail">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <input type="hidden" asp-for="Email" />
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="ConfirmationCode" class="form-label">Confirmation Code</label>
+                        <input asp-for="ConfirmationCode" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="ConfirmationCode" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Confirm Email</button>
+                    </div>
+                </form>
+                
+                <div class="mt-3 text-center">
+                    <p>
+                        <a asp-action="ResendConfirmationEmail" asp-route-email="@Model.Email">Resend confirmation code</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ISyZJhY50k8=",
+  "dgSpecHash": "zhKPStB2pCY=",
   "success": true,
   "projectFilePath": "/Users/bhosalep/Documents/HireVault/HireVault.Core/HireVault.Core.csproj",
   "expectedPackageFiles": [
-    "/Users/bhosalep/.nuget/packages/awssdk.core/4.0.3.6/awssdk.core.4.0.3.6.nupkg.sha512",
-    "/Users/bhosalep/.nuget/packages/awssdk.secretsmanager/4.0.4.1/awssdk.secretsmanager.4.0.4.1.nupkg.sha512"
+    "/Users/bhosalep/.nuget/packages/awssdk.core/3.7.105.18/awssdk.core.3.7.105.18.nupkg.sha512",
+    "/Users/bhosalep/.nuget/packages/awssdk.secretsmanager/3.7.102.1/awssdk.secretsmanager.3.7.102.1.nupkg.sha512"
   ],
   "logs": []
 }

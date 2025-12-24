@@ -29,6 +29,9 @@
           }
         },
         "warningProperties": {
+          "noWarn": [
+            "NU1605"
+          ],
           "warnAsError": [
             "NU1605"
           ]
@@ -43,9 +46,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[3.7.105.18, )"
+            },
             "AWSSDK.SecretsManager": {
               "target": "Package",
-              "version": "[4.0.4.1, )"
+              "version": "[3.7.102.1, )"
             }
           },
           "imports": [
