@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HireVault.Infrastructure.Data;
-using HireVault.Infrastructure.Services;
-using HireVault.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +15,13 @@ using Amazon.Extensions.NETCore.Setup;
 using HireVault.Web.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
+using Amazon.S3;
+using HireVault.Core.Interfaces;
+using HireVault.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
+// Create the web application builder
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -38,6 +42,10 @@ builder.Services.AddAWSService<IAmazonCognitoIdentityProvider>();
 
 // Register Cognito services
 builder.Services.AddScoped<ICognitoService, CognitoService>();
+
+// Register S3 service and AWS S3 client
+builder.Services.AddAWSService<IAmazonS3>();
+builder.Services.AddScoped<IS3Service, S3Service>();
 
 // Add session for storing tokens
 builder.Services.AddSession(options =>
@@ -87,10 +95,6 @@ builder.Services.AddAuthentication(options =>
     options.SlidingExpiration = true;
 });
 
-// Register application services
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IDocumentService, DocumentService>();
-
 // Add authorization policies
 builder.Services.AddAuthorization(options =>
 {
@@ -103,6 +107,26 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+
+// Initialize and seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<HireVaultDbContext>();
+        // Ensure the database is created and apply any pending migrations
+        context.Database.EnsureCreated();
+        
+        // Seed the database with initial data
+        await HireVault.Infrastructure.Data.DataSeeder.SeedData(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 // Enable session
 app.UseSession();
@@ -130,4 +154,4 @@ app.MapControllerRoute(
 // Comment out or remove if you're not using Razor Pages
 // app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();

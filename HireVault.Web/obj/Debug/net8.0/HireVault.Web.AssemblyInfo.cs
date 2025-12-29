@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HireVault.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d2a1abf92b21c1e6ab17e2c8020e7c1aa6d145f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1716c349c607bc186d6cd266b1f64c796371b1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("HireVault.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HireVault.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

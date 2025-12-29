@@ -21,6 +21,5 @@ namespace HireVault.Core.Entities
     
     // Navigation properties
     public required Employee Employee { get; set; }
-    public required DocumentType DocumentType { get; set; }
 }
 }

@@ -13,21 +13,7 @@ namespace HireVault.Infrastructure.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Document> Documents { get; set; }
-        public DbSet<DocumentType> DocumentTypes { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Document>()
-                .HasOne(d => d.DocumentType)
-                .WithMany()
-                .HasForeignKey(d => d.DocumentTypeId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Document>()
-                .HasOne(d => d.Employee)
-                .WithMany(e => e.Documents)
-                .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
-        }
+        public DbSet<CandidateDocuments> CandidateDocuments { get; set; }
+        public DbSet<Candidates> Candidates { get; set; }
     }
 }
