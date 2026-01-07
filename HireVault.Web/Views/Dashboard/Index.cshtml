@@ -1,187 +1,86 @@
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Dashboard - HireVault";
     Layout = "_Layout";
 }
 
 <div class="container-fluid">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <i class="bi bi-calendar"></i> This week
-            </button>
+
+    <!-- Hero Section -->
+    <div class="row align-items-center hero-section py-5">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold mb-3">Candidate Shortlisting Dashboard</h1>
+            <p class="lead mb-4">
+                Review, verify, and shortlist candidates efficiently from one place.
+            </p>
         </div>
     </div>
 
-    <!-- Status Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3 mb-4">
-            <div class="card border-start border-primary border-4">
-                <div class="card-body">
-                    <h6 class="text-muted mb-2">Onboarding Status</h6>
-                    <h4 class="mb-0">In Progress</h4>
-                    <div class="progress mt-3" style="height: 8px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small class="text-muted">65% Complete</small>
-                </div>
-            </div>
+    <!-- Stats Section -->
+    <div class="row stats-section py-5 my-5">
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <h2 class="display-4 fw-bold text-primary">120</h2>
+            <p class="lead">Total Candidates</p>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card border-start border-success border-4">
-                <div class="card-body">
-                    <h6 class="text-muted mb-2">Documents Uploaded</h6>
-                    <h4 class="mb-0">5/8</h4>
-                    <div class="progress mt-3" style="height: 8px;">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 62.5%;" aria-valuenow="62.5" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small class="text-muted">5 out of 8 documents</small>
-                </div>
-            </div>
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <h2 class="display-4 fw-bold text-primary">45</h2>
+            <p class="lead">Verified</p>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card border-start border-warning border-4">
-                <div class="card-body">
-                    <h6 class="text-muted mb-2">Pending Review</h6>
-                    <h4 class="mb-0">3</h4>
-                    <p class="mb-0 mt-2">
-                        <span class="text-warning"><i class="bi bi-exclamation-triangle-fill"></i> Action Required</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card border-start border-info border-4">
-                <div class="card-body">
-                    <h6 class="text-muted mb-2">Next Steps</h6>
-                    <h4 class="mb-0">2</h4>
-                    <p class="mb-0 mt-2">
-                        <span class="text-info"><i class="bi bi-info-circle-fill"></i> Review required</span>
-                    </p>
-                </div>
-            </div>
+        <div class="col-md-4 text-center">
+            <h2 class="display-4 fw-bold text-primary">18</h2>
+            <p class="lead">Shortlisted</p>
         </div>
     </div>
 
-    <!-- Documents Section -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">My Documents</h5>
+    <!-- Actions Section -->
+    <div class="row py-5 my-5">
+        <div class="col-12 text-center mb-5">
+            <h2 class="fw-bold">Dashboard Actions</h2>
+            <p class="lead text-muted">Manage candidate verification workflow</p>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Document Name</th>
-                            <th>Type</th>
-                            <th>Uploaded On</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Passport.pdf</td>
-                            <td>Identification</td>
-                            <td>Dec 20, 2023</td>
-                            <td><span class="badge bg-success">Approved</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">View</button>
-                                <button class="btn btn-sm btn-outline-secondary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Resume_JohnDoe.pdf</td>
-                            <td>Resume</td>
-                            <td>Dec 22, 2023</td>
-                            <td><span class="badge bg-warning">Pending Review</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">View</button>
-                                <button class="btn btn-sm btn-outline-secondary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Degree_Certificate.pdf</td>
-                            <td>Education</td>
-                            <td>Dec 22, 2023</td>
-                            <td><span class="badge bg-warning">Pending Review</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">View</button>
-                                <button class="btn btn-sm btn-outline-secondary">Download</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-3">
-                <button class="btn btn-primary">
-                    <i class="bi bi-plus-lg"></i> Upload New Document
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Onboarding Progress -->
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">Onboarding Progress</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="progress-steps">
-                        <div class="step completed">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h6>Account Created</h6>
-                                <p class="mb-0 text-muted">Your account has been successfully created.</p>
-                            </div>
-                        </div>
-                        <div class="step completed">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h6>Profile Information</h6>
-                                <p class="mb-0 text-muted">Your profile information has been submitted.</p>
-                            </div>
-                        </div>
-                        <div class="step active">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h6>Document Upload</h6>
-                                <p class="mb-0 text-muted">Please upload the required documents.</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <h6>Verification</h6>
-                                <p class="mb-0 text-muted">Your documents are under review.</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <h6>Onboarding Complete</h6>
-                                <p class="mb-0 text-muted">You're all set to start!</p>
-                            </div>
-                        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-people text-primary" style="font-size: 2rem;"></i>
                     </div>
+                    <h4 class="h5 fw-bold">View Candidates</h4>
+                    <p class="text-muted">Browse all registered candidates.</p>
+                    <a asp-controller="Dashboard" asp-action="GetAllCandidates" class="btn btn-outline-primary">
+                        View
+                    </a>
                 </div>
-                <div class="col-md-4">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <h6>Need Help?</h6>
-                            <p class="small text-muted">If you have any questions about the onboarding process, please contact our support team.</p>
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="bi bi-envelope"></i> Contact Support
-                            </button>
-                        </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-file-earmark-check text-primary" style="font-size: 2rem;"></i>
                     </div>
+                    <h4 class="h5 fw-bold">Verify Documents</h4>
+                    <p class="text-muted">Check uploaded documents.</p>
+                    <a asp-controller="Verification" asp-action="Index" class="btn btn-outline-primary">
+                        Verify
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-check-circle text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h4 class="h5 fw-bold">Shortlist</h4>
+                    <p class="text-muted">Finalize shortlisted candidates.</p>
+                    <a asp-controller="Dashboard"
+                       asp-action="Shortlist"
+                       class="btn btn-outline-primary">
+                        Shortlist
+                    </a>
                 </div>
             </div>
         </div>
@@ -190,61 +89,63 @@
 
 @section Styles {
     <style>
-        .progress-steps {
-            position: relative;
-            padding-left: 45px;
+        .hero-section {
+            min-height: 40vh;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
         }
-        
-        .step {
-            position: relative;
-            padding-bottom: 30px;
-            border-left: 2px solid #e9ecef;
-            padding-left: 25px;
+
+        .stats-section {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
         }
-        
-        .step:last-child {
-            border-left: 0;
-        }
-        
-        .step.completed {
-            border-left-color: #0d6efd;
-        }
-        
-        .step.completed .step-number {
-            background-color: #0d6efd;
-            color: white;
-            border-color: #0d6efd;
-        }
-        
-        .step.active .step-number {
-            background-color: #0d6efd;
-            color: white;
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
-        }
-        
-        .step-number {
-            position: absolute;
-            left: -36px;
-            top: 0;
-            width: 30px;
-            height: 30px;
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(13, 110, 253, 0.1);
             border-radius: 50%;
-            background-color: #e9ecef;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            border: 2px solid #dee2e6;
-            z-index: 1;
+            margin: 0 auto 1.5rem;
         }
-        
-        .step-content {
-            padding: 5px 0 20px;
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        
-        .step:last-child .step-content {
-            padding-bottom: 0;
-        }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            }
     </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const elements = document.querySelectorAll('.card, .stats-section h2');
+
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+            });
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
 }

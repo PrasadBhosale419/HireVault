@@ -1,0 +1,89 @@
+﻿@model List<HireVault.Core.Entities.Candidates>
+
+@{
+    ViewData["Title"] = "All Candidates";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid py-5">
+
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h1 class="fw-bold">All Candidates</h1>
+            <p class="lead text-muted">
+                View and notify shortlisted candidates
+            </p>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var candidate in Model)
+                                    {
+                                        <tr>
+                                            <td>@candidate.FirstName</td>
+                                            <td>@candidate.LastName</td>
+                                            <td>@candidate.Email</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-primary btn-sm">
+                                                    <i class="bi bi-bell"></i> Notify
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            No candidates found
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.75rem;
+        }
+
+        table th {
+            font-weight: 600;
+        }
+
+        table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+            table tbody tr:hover {
+                background-color: #f8f9fa;
+            }
+    </style>
+}

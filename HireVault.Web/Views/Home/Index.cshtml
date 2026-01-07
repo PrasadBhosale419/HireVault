@@ -10,8 +10,16 @@
             <h1 class="display-4 fw-bold mb-4">HR Document Verification Portal</h1>
             <p class="lead mb-4">Streamline your candidate verification process with our secure document validation system.</p>
             <div class="d-grid gap-3 d-sm-flex">
-                <a href="/Candidates" class="btn btn-primary btn-lg px-4 me-sm-3">View Candidates</a>
-                <a href="/Verification" class="btn btn-outline-secondary btn-lg px-4">Start Verification</a>
+                <a asp-controller="Dashboard"
+                   asp-action="GetAllCandidates"
+                   class="btn btn-primary btn-lg px-4 me-sm-3">
+                    View Candidates
+                </a>
+                <a asp-controller="Dashboard"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary btn-lg px-4">
+                    Shortlist candidates
+                </a>
             </div>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
