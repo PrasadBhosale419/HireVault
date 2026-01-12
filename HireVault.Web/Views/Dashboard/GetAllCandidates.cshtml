@@ -1,4 +1,4 @@
-﻿@model List<HireVault.Core.Entities.Candidates>
+﻿@model List<HireVault.Core.Entities.Applicants>
 
 @{
     ViewData["Title"] = "All Candidates";
@@ -11,9 +11,7 @@
     <div class="row mb-5">
         <div class="col text-center">
             <h1 class="fw-bold">All Candidates</h1>
-            <p class="lead text-muted">
-                View and notify shortlisted candidates
-            </p>
+            <p class="lead text-muted">View and notify shortlisted candidates</p>
         </div>
     </div>
 
@@ -43,7 +41,9 @@
                                             <td>@candidate.LastName</td>
                                             <td>@candidate.Email</td>
                                             <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm">
+                                                <button type="button"
+                                                        class="btn btn-outline-primary btn-sm notify-btn"
+                                                        data-id="@candidate.ApplicantId">
                                                     <i class="bi bi-bell"></i> Notify
                                                 </button>
                                             </td>
@@ -86,4 +86,38 @@
                 background-color: #f8f9fa;
             }
     </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.notify-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const candidateId = btn.getAttribute('data-id');
+
+                    if (!candidateId) {
+                        alert('CandidateId is missing!');
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/Dashboard/NotifyCandidate/${candidateId}`, {
+                            method: 'POST'
+                        });
+
+                        if (response.ok) {
+                            alert('Candidate notified successfully!');
+                            location.reload();
+                        } else {
+                            const text = await response.text();
+                            alert('Failed to notify candidate: ' + text);
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert('Error sending notification.');
+                    }
+                });
+            });
+        });
+    </script>
 }

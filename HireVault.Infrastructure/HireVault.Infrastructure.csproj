@@ -25,4 +25,8 @@
     <ProjectReference Include="..\HireVault.Core\HireVault.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

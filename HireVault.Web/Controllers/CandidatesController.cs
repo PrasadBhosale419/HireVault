@@ -3,12 +3,11 @@ using System.IO;
 using System.Threading.Tasks;
 using HireVault.Core.Entities;
 using HireVault.Core.Interfaces;
-using HireVault.Core.ViewModels;
+using HireVault.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using HireVault.Infrastructure.Data;
 
 namespace HireVault.Web.Controllers
 {
@@ -29,81 +28,114 @@ namespace HireVault.Web.Controllers
             _context = context;
         }
 
+        // =========================
+        // GET UPLOAD FORM
+        // =========================
         [AllowAnonymous]
-        [HttpGet("candidates/{candidateId}/documents/upload")]
-        public IActionResult UploadDocument(string candidateId)
+        [HttpGet("candidates/{candidateId}/documents/uploadform")]
+        public IActionResult GetUploadDocumentPage(int candidateId)
         {
-            // Verify candidate exists
-            var candidate = _context.Candidates.Find(candidateId);
+            var candidate = _context.Applicants.Find(candidateId);
             if (candidate == null)
             {
                 return NotFound();
             }
 
             ViewBag.CandidateId = candidateId;
-            return View(new DocumentUploadViewModel());
+            return View();
         }
 
+        // =========================
+        // POST DOCUMENT UPLOAD
+        // =========================
         [AllowAnonymous]
         [HttpPost("candidates/{candidateId}/documents/upload")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadDocument(string candidateId, [FromForm] DocumentUploadViewModel model)
+        public async Task<IActionResult> UploadDocuments(int candidateId)
         {
-            if (!ModelState.IsValid)
+            var candidate = await _context.Applicants.FindAsync(candidateId);
+            if (candidate == null)
             {
-                ViewBag.CandidateId = candidateId;
-                return View(model);
+                return NotFound();
             }
 
             try
             {
-                // Verify candidate exists
-                var candidate = await _context.Candidates.FindAsync(candidateId);
-                if (candidate == null)
+                var files = Request.Form.Files;
+
+                if (files == null || files.Count == 0)
                 {
-                    return NotFound();
+                    TempData["ErrorMessage"] = "Please upload required documents.";
+                    return Redirect($"/candidates/{candidateId}/documents/uploadform");
                 }
 
-                var file = Request.Form.Files["File"];
-                if (file == null || file.Length == 0)
+                async Task SaveDocumentAsync(IFormFile file, DocumentType documentType)
                 {
-                    ModelState.AddModelError("", "Please select a file to upload.");
-                    ViewBag.CandidateId = candidateId;
-                    return View(model);
+                    if (file == null || file.Length == 0) return;
+
+                    var extension = Path.GetExtension(file.FileName);
+                    var storedFileName = $"{Guid.NewGuid()}{extension}";
+                    var s3Key = $"Candidates/{candidateId}/Documents/{storedFileName}";
+
+                    using var stream = file.OpenReadStream();
+                     await _s3Service.UploadFileAsync(
+                        stream,
+                        file.FileName,
+                        s3Key,
+                        file.ContentType
+                    );
+
+                    var document = new CandidateDocuments
+                    {
+                        DocumentId = Guid.NewGuid().ToString(),
+                        CandidateId = candidateId,
+                        DocumentType = documentType,
+                        FileName = file.FileName,
+                        S3Key = s3Key,
+                        UploadedAt = DateTime.UtcNow.ToString("o")
+                    };
+
+                    _context.CandidateDocuments.Add(document);
                 }
 
-                // Generate S3 key
-                var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                var fileName = $"{Guid.NewGuid()}{fileExtension}";
-                var s3Key = $"HireVault/Candidates/{candidateId}/Documents/{fileName}";
+                // Aadhar Card
+                await SaveDocumentAsync(
+                    files["AadharCard"],
+                    DocumentType.AadharCard
+                );
 
-                // Upload to S3
-                using var fileStream = file.OpenReadStream();
-                await _s3Service.UploadFileAsync(fileStream, file.FileName, s3Key, file.ContentType);
+                // Resume
+                await SaveDocumentAsync(
+                    files["Resume"],
+                    DocumentType.Resume
+                );
 
-                // Save to database
-                var document = new CandidateDocuments
+                // Resignation Letter
+                await SaveDocumentAsync(
+                    files["ResignationLetter"],
+                    DocumentType.ResignationLetter
+                );
+
+                // Salary Slips (multiple)
+                var salarySlips = files.GetFiles("SalarySlip");
+                foreach (var slip in salarySlips)
                 {
-                    DocumentId = Guid.NewGuid().ToString(),
-                    CandidateId = candidateId,
-                    DocumentType = model.DocumentType,
-                    FileName = file.FileName,
-                    S3Key = s3Key,
-                    UploadedAt = DateTime.UtcNow.ToString("o")
-                };
+                    await SaveDocumentAsync(
+                        slip,
+                        DocumentType.SalarySlip
+                    );
+                }
 
-                _context.CandidateDocuments.Add(document);
                 await _context.SaveChangesAsync();
 
-                TempData["SuccessMessage"] = "Document uploaded successfully!";
-                return RedirectToAction(nameof(UploadDocument), new { candidateId });
+                TempData["SuccessMessage"] = "Documents uploaded successfully!";
+                return Redirect($"/candidates/{candidateId}/documents/uploadform");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error uploading document");
-                ModelState.AddModelError("", "An error occurred while uploading the document. Please try again.");
-                ViewBag.CandidateId = candidateId;
-                return View(model);
+                _logger.LogError(ex, "Error uploading documents");
+                TempData["ErrorMessage"] = "An error occurred while uploading documents.";
+                return Redirect($"/candidates/{candidateId}/documents/uploadform");
             }
         }
     }

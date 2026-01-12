@@ -5,7 +5,7 @@ namespace HireVault.Core.Entities
     {
         [Key]
         public string DocumentId { get; set; }
-        public string CandidateId { get; set; }
+        public int CandidateId { get; set; }
         public DocumentType DocumentType {get; set;}
         public string S3Key {get; set;}
         public string FileName {get; set;}

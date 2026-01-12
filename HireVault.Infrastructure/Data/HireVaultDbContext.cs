@@ -14,6 +14,6 @@ namespace HireVault.Infrastructure.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<CandidateDocuments> CandidateDocuments { get; set; }
-        public DbSet<Candidates> Candidates { get; set; }
+        public DbSet<Applicants> Applicants { get; set; }
     }
 }

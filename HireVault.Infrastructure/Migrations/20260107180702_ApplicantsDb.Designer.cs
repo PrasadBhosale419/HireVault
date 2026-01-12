@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HireVault.Infrastructure.Migrations
 {
     [DbContext(typeof(HireVaultDbContext))]
-    [Migration("20251224170055_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260107180702_ApplicantsDb")]
+    partial class ApplicantsDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,66 @@ namespace HireVault.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HireVault.Core.Entities.Applicants", b =>
+                {
+                    b.Property<int>("ApplicantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicantId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("ApplicantId");
+
+                    b.ToTable("Applicants");
+                });
+
+            modelBuilder.Entity("HireVault.Core.Entities.CandidateDocuments", b =>
+                {
+                    b.Property<string>("DocumentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CandidateId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DocumentType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("S3Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UploadedAt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DocumentId");
+
+                    b.ToTable("CandidateDocuments");
+                });
 
             modelBuilder.Entity("HireVault.Core.Entities.Document", b =>
                 {
@@ -38,9 +98,6 @@ namespace HireVault.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DocumentTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DocumentTypeId1")
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
@@ -74,36 +131,9 @@ namespace HireVault.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentTypeId");
-
-                    b.HasIndex("DocumentTypeId1");
-
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("HireVault.Core.Entities.DocumentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsRequired")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("HireVault.Core.Entities.Employee", b =>
@@ -155,30 +185,13 @@ namespace HireVault.Infrastructure.Migrations
 
             modelBuilder.Entity("HireVault.Core.Entities.Document", b =>
                 {
-                    b.HasOne("HireVault.Core.Entities.DocumentType", "DocumentType")
-                        .WithMany()
-                        .HasForeignKey("DocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HireVault.Core.Entities.DocumentType", null)
-                        .WithMany("Documents")
-                        .HasForeignKey("DocumentTypeId1");
-
                     b.HasOne("HireVault.Core.Entities.Employee", "Employee")
                         .WithMany("Documents")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DocumentType");
-
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("HireVault.Core.Entities.DocumentType", b =>
-                {
-                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("HireVault.Core.Entities.Employee", b =>

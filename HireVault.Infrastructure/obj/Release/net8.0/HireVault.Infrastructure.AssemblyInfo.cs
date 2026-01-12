@@ -12,9 +12,9 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("HireVault.Infrastructure")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edcfa86b37282a849de38c7986e4fb6db8ecc571")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7908183804b58712af79033613d3dedae864d8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("HireVault.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HireVault.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,7 +5,7 @@ namespace HireVault.Core.Interfaces
 {
     public interface IS3Service
     {
-        Task<string> UploadFileAsync(Stream fileStream, string fileName, string key, string contentType);
-        Task<bool> DeleteFileAsync(string key);
+        Task UploadFileAsync(Stream fileStream, string fileName, string key, string contentType);
+        Task DeleteFileAsync(string key);
     }
 }

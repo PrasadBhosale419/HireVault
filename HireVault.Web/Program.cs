@@ -17,7 +17,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using Amazon.S3;
 using HireVault.Core.Interfaces;
-using HireVault.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
@@ -46,6 +45,7 @@ builder.Services.AddScoped<ICognitoService, CognitoService>();
 // Register S3 service and AWS S3 client
 builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddScoped<IS3Service, S3Service>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Add session for storing tokens
 builder.Services.AddSession(options =>

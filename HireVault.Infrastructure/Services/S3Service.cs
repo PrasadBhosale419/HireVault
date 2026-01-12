@@ -1,54 +1,60 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using Amazon;
+using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using HireVault.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
-namespace HireVault.Infrastructure.Services
+public class S3Service : IS3Service
 {
-    public class S3Service : IS3Service
+    private readonly IAmazonS3 _s3;
+    private readonly IConfiguration _configuration;
+
+    public S3Service(IConfiguration configuration)
     {
-        private readonly IAmazonS3 _s3Client;
-        private readonly string _bucketName;
+        _configuration = configuration;
 
-        public S3Service(IAmazonS3 s3Client, IConfiguration configuration)
+        var accessKey = _configuration["AWS:AccessKey"];
+        var secretKey = _configuration["AWS:SecretKey"];
+        var sessionToken = _configuration["AWS:SessionToken"];
+        var region = _configuration["AWS:Region"];
+
+        var credentials = new SessionAWSCredentials(
+            accessKey,
+            secretKey,
+            sessionToken
+        ); 
+
+        _s3 = new AmazonS3Client(
+            credentials,
+            Amazon.RegionEndpoint.USEast1
+        );
+    }
+
+    public Task<bool> DeleteFileAsync(string key)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UploadFileAsync(Stream fileStream, string fileName, string key, string contentType)
+    {
+        var bucketName = _configuration["AWS:BucketName"];
+        var buckets = await _s3.ListBucketsAsync();
+
+        var request = new PutObjectRequest
         {
-            _s3Client = s3Client;
-            _bucketName = configuration["AWS:BucketName"] ?? throw new ArgumentNullException("AWS BucketName is not configured");
-        }
+            BucketName = bucketName,
+            Key = key,
+            InputStream = fileStream,
+            ContentType = contentType
+        };
 
-        public async Task<string> UploadFileAsync(Stream fileStream, string fileName, string key, string contentType)
-        {
-            var request = new PutObjectRequest
-            {
-                BucketName = _bucketName,
-                Key = key,
-                InputStream = fileStream,
-                ContentType = contentType,
-                CannedACL = S3CannedACL.Private
-            };
+        await _s3.PutObjectAsync(request);
+    }
 
-            var response = await _s3Client.PutObjectAsync(request);
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return key;
-            }
-
-            throw new Exception("Failed to upload file to S3");
-        }
-
-        public async Task<bool> DeleteFileAsync(string key)
-        {
-            var request = new DeleteObjectRequest
-            {
-                BucketName = _bucketName,
-                Key = key
-            };
-
-            var response = await _s3Client.DeleteObjectAsync(request);
-            return response.HttpStatusCode == System.Net.HttpStatusCode.NoContent;
-        }
+    Task IS3Service.DeleteFileAsync(string key)
+    {
+        return DeleteFileAsync(key);
     }
 }

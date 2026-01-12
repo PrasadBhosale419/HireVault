@@ -10,34 +10,34 @@ namespace HireVault.Infrastructure.Data
         public static async Task SeedData(HireVaultDbContext context)
         {
             // Seed Candidates
-            if (!await context.Candidates.AnyAsync())
+            if (!await context.Applicants.AnyAsync())
             {
                 var candidates = new[]
                 {
-                    new Candidates
+                    new Applicants
                     {
-                        CandidateId = "CAND001",
+                        ApplicantId = 1,
                         FirstName = "John",
                         Email = "john.doe@example.com",
                         CreatedAt = DateTime.UtcNow
                     },
-                    new Candidates
+                    new Applicants
                     {
-                        CandidateId = "CAND002",
+                        ApplicantId = 2,
                         FirstName = "Jane",
                         Email = "jane.smith@example.com",
                         CreatedAt = DateTime.UtcNow
                     },
-                    new Candidates
+                    new Applicants
                     {
-                        CandidateId = "CAND003",
+                        ApplicantId = 3,
                         FirstName = "Robert",
                         Email = "robert.johnson@example.com",
                         CreatedAt = DateTime.UtcNow
                     }
                 };
 
-                await context.Candidates.AddRangeAsync(candidates);
+                await context.Applicants.AddRangeAsync(candidates);
                 await context.SaveChangesAsync();
 
                 // Seed Candidate Documents
@@ -46,7 +46,7 @@ namespace HireVault.Infrastructure.Data
                     new CandidateDocuments
                     {
                         DocumentId = Guid.NewGuid().ToString(),
-                        CandidateId = "CAND001",
+                        CandidateId = 1,
                         DocumentType = DocumentType.Resume,
                         FileName = "JohnDoe_Resume.pdf",
                         S3Key = "HireVault/Candidates/CAND001/Documents/resume.pdf",
@@ -55,7 +55,7 @@ namespace HireVault.Infrastructure.Data
                     new CandidateDocuments
                     {
                         DocumentId = Guid.NewGuid().ToString(),
-                        CandidateId = "CAND001",
+                        CandidateId = 1,
                         DocumentType = DocumentType.AadharCard,
                         FileName = "JohnDoe_Aadhar.pdf",
                         S3Key = "HireVault/Candidates/CAND001/Documents/aadhar.pdf",
@@ -64,7 +64,7 @@ namespace HireVault.Infrastructure.Data
                     new CandidateDocuments
                     {
                         DocumentId = Guid.NewGuid().ToString(),
-                        CandidateId = "CAND002",
+                        CandidateId = 2,
                         DocumentType = DocumentType.Resume,
                         FileName = "JaneSmith_Resume.pdf",
                         S3Key = "HireVault/Candidates/CAND002/Documents/resume.pdf",
@@ -73,7 +73,7 @@ namespace HireVault.Infrastructure.Data
                     new CandidateDocuments
                     {
                         DocumentId = Guid.NewGuid().ToString(),
-                        CandidateId = "CAND003",
+                        CandidateId = 3,
                         DocumentType = DocumentType.Resume,
                         FileName = "RobertJohnson_Resume.pdf",
                         S3Key = "HireVault/Candidates/CAND003/Documents/resume.pdf",
@@ -82,7 +82,7 @@ namespace HireVault.Infrastructure.Data
                     new CandidateDocuments
                     {
                         DocumentId = Guid.NewGuid().ToString(),
-                        CandidateId = "CAND003",
+                        CandidateId = 3,
                         DocumentType = DocumentType.SalarySlip,
                         FileName = "RobertJohnson_SalarySlip.pdf",
                         S3Key = "HireVault/Candidates/CAND003/Documents/salary_slip.pdf",

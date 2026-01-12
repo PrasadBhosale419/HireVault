@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Upload Candidate Documents";
+    Layout = "_CandidateLayout";
+
+    // IMPORTANT: candidateId is INT (matches controller)
+    var candidateId = (int)ViewBag.CandidateId;
+}
+
+<div class="container-fluid">
+    <div class="row min-vh-100">
+
+        <!-- LEFT SECTION -->
+        <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center px-5 text-white"
+             style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+
+            <h1 class="fw-bold mb-3">Candidate Verification</h1>
+            <p class="fs-5">
+                Please upload the required documents to complete your verification process.
+                All documents are securely stored and reviewed by HR.
+            </p>
+
+            <ul class="fs-6 mt-4">
+                <li>Aadhar Card</li>
+                <li>Resume</li>
+                <li>Resignation Letter</li>
+                <li>Salary Slips (Last 3 Months)</li>
+            </ul>
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light">
+            <div class="card shadow-lg border-0 w-100" style="max-width: 520px;">
+                <div class="card-body p-5">
+
+                    <h3 class="fw-bold text-center mb-4">
+                        Upload Documents
+                    </h3>
+
+                    <form method="post"
+                          action="@Url.Action(
+                              "UploadDocuments",
+                              "Candidates",
+                              new { candidateId = candidateId }
+                          )"
+                          enctype="multipart/form-data"
+                          class="needs-validation"
+                          novalidate>
+
+                        @Html.AntiForgeryToken()
+
+                        <!-- Aadhar Card -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Aadhar Card <span class="text-danger">*</span>
+                            </label>
+                            <input type="file"
+                                   name="AadharCard"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <!-- Resume -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Resume <span class="text-danger">*</span>
+                            </label>
+                            <input type="file"
+                                   name="Resume"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <!-- Resignation Letter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Resignation Letter <span class="text-danger">*</span>
+                            </label>
+                            <input type="file"
+                                   name="ResignationLetter"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <!-- Salary Slips -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Salary Slips (Last 3 Months) <span class="text-danger">*</span>
+                            </label>
+                            <input type="file"
+                                   name="SalarySlip"
+                                   class="form-control"
+                                   multiple
+                                   required />
+                            <small class="text-muted">
+                                Upload 3 separate files
+                            </small>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Upload Documents
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            'use strict';
+
+            document.querySelectorAll('.needs-validation').forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                });
+            });
+        })();
+    </script>
+}
