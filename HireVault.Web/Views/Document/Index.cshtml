@@ -1,0 +1,93 @@
+﻿@model IEnumerable<HireVault.Web.Models.ViewModels.CandidateDocumentsIndexViewModel>
+
+@{
+    ViewData["Title"] = "Candidate Documents - HireVault";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="row py-4">
+        <div class="col-12 text-center">
+            <h1 class="fw-bold text-primary">Candidate Documents</h1>
+            <p class="lead text-muted">View all candidates who have uploaded documents</p>
+        </div>
+    </div>
+
+    <!-- Candidate Cards -->
+    <div class="row">
+        @foreach (var candidate in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm candidate-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">@candidate.FullName</h5>
+                        <p class="text-muted mb-2">
+                            Uploaded At: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a href="/document/getdocument/@candidate.CandidateId"
+                               class="btn btn-primary">
+                                View Documents
+                            </a>
+                            <form asp-controller="Document"
+                                  asp-action="Delete"
+                                  asp-route-id="@candidate.CandidateId"
+                                  method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .candidate-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.75rem;
+        }
+
+            .candidate-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            }
+
+        .card-title {
+            color: #0d6efd;
+        }
+
+        .btn-sm {
+            font-size: 0.85rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.candidate-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+            });
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+}

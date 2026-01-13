@@ -49,7 +49,7 @@ namespace HireVault.Infrastructure.Data
                         CandidateId = 1,
                         DocumentType = DocumentType.Resume,
                         FileName = "JohnDoe_Resume.pdf",
-                        S3Key = "HireVault/Candidates/CAND001/Documents/resume.pdf",
+                        S3Key = "HireVault/Candidates/1/Documents/resume.pdf",
                         UploadedAt = DateTime.UtcNow.ToString("o")
                     },
                     new CandidateDocuments
@@ -58,7 +58,7 @@ namespace HireVault.Infrastructure.Data
                         CandidateId = 1,
                         DocumentType = DocumentType.AadharCard,
                         FileName = "JohnDoe_Aadhar.pdf",
-                        S3Key = "HireVault/Candidates/CAND001/Documents/aadhar.pdf",
+                        S3Key = "HireVault/Candidates/1/Documents/aadhar.pdf",
                         UploadedAt = DateTime.UtcNow.ToString("o")
                     },
                     new CandidateDocuments
@@ -67,7 +67,7 @@ namespace HireVault.Infrastructure.Data
                         CandidateId = 2,
                         DocumentType = DocumentType.Resume,
                         FileName = "JaneSmith_Resume.pdf",
-                        S3Key = "HireVault/Candidates/CAND002/Documents/resume.pdf",
+                        S3Key = "HireVault/Candidates/2/Documents/resume.pdf",
                         UploadedAt = DateTime.UtcNow.ToString("o")
                     },
                     new CandidateDocuments
@@ -76,7 +76,7 @@ namespace HireVault.Infrastructure.Data
                         CandidateId = 3,
                         DocumentType = DocumentType.Resume,
                         FileName = "RobertJohnson_Resume.pdf",
-                        S3Key = "HireVault/Candidates/CAND003/Documents/resume.pdf",
+                        S3Key = "HireVault/Candidates/3/Documents/resume.pdf",
                         UploadedAt = DateTime.UtcNow.ToString("o")
                     },
                     new CandidateDocuments
@@ -85,7 +85,7 @@ namespace HireVault.Infrastructure.Data
                         CandidateId = 3,
                         DocumentType = DocumentType.SalarySlip,
                         FileName = "RobertJohnson_SalarySlip.pdf",
-                        S3Key = "HireVault/Candidates/CAND003/Documents/salary_slip.pdf",
+                        S3Key = "HireVault/Candidates/3/Documents/salary_slip.pdf",
                         UploadedAt = DateTime.UtcNow.ToString("o")
                     }
                 };

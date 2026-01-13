@@ -1,0 +1,135 @@
+﻿@model List<DocumentListByCandidateIdViewModel>
+
+@{
+    ViewData["Title"] = "Candidate Documents";
+    Layout = null; // or your layout if you want
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container-fluid min-vh-100">
+    <div class="row min-vh-100">
+
+        <!-- LEFT: DOCUMENT LIST -->
+        <div class="col-lg-3 border-end p-0"
+             style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+
+            <div class="p-4 text-white">
+                <h5 class="fw-bold mb-3">Uploaded Documents</h5>
+
+                <ul class="list-group list-group-flush">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li class="list-group-item list-group-item-action bg-transparent text-white border-0 document-item"
+                            data-index="@i"
+                            style="cursor:pointer;">
+                            @Model[i].DocumentName
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <!-- RIGHT: PREVIEW -->
+        <div class="col-lg-9 p-0 bg-light">
+            <div class="d-flex flex-column h-100">
+
+                <!-- TOP BAR -->
+                <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-white">
+                    <h5 class="mb-0 fw-bold" id="docTitle">
+                        @Model.FirstOrDefault()?.DocumentName
+                    </h5>
+
+                    <a id="downloadSingle"
+                       href="@Model.FirstOrDefault()?.DocumentUrl"
+                       class="btn btn-outline-primary"
+                       download>
+                        Download
+                    </a>
+                </div>
+
+                <!-- DOCUMENT PREVIEW -->
+                <div class="flex-grow-1 p-4 bg-secondary-subtle">
+                    <iframe id="docPreview"
+                            src="@Model.FirstOrDefault()?.DocumentUrl"
+                            class="w-100 h-100 border rounded"
+                            style="background:white;">
+                    </iframe>
+                </div>
+
+                <!-- BOTTOM ACTIONS -->
+                <div class="px-4 py-3 border-top bg-white d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <button class="btn btn-outline-secondary me-2" id="prevBtn">
+                            ← Back
+                        </button>
+                        <button class="btn btn-outline-secondary" id="nextBtn">
+                            Next →
+                        </button>
+                    </div>
+
+                    <div class="text-end">
+                        <a asp-action="DownloadAll"
+                           asp-route-candidateId="@ViewBag.CandidateId"
+                           class="btn btn-outline-primary mb-2">
+                            Download All as ZIP
+                        </a>
+
+                        <br />
+
+                        <button class="btn btn-success d-none" id="verifyBtn">
+                            Verify Documents
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const documents = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+    let currentIndex = 0;
+
+    const title = document.getElementById("docTitle");
+    const preview = document.getElementById("docPreview");
+    const downloadSingle = document.getElementById("downloadSingle");
+    const verifyBtn = document.getElementById("verifyBtn");
+
+    function loadDocument(index) {
+        currentIndex = index;
+        const doc = documents[index];
+
+        title.innerText = doc.documentName;
+        preview.src = doc.documentUrl;
+        downloadSingle.href = doc.documentUrl;
+
+        // Show verify button only on last document
+        if (index === documents.length - 1) {
+            verifyBtn.classList.remove("d-none");
+        } else {
+            verifyBtn.classList.add("d-none");
+        }
+    }
+
+    document.querySelectorAll(".document-item").forEach(item => {
+        item.addEventListener("click", () => {
+            loadDocument(parseInt(item.dataset.index));
+        });
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        if (currentIndex < documents.length - 1) {
+            loadDocument(currentIndex + 1);
+        }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentIndex > 0) {
+            loadDocument(currentIndex - 1);
+        }
+    });
+</script>

@@ -89,7 +89,12 @@ namespace HireVault.Web.Controllers
                         });
 
                     _logger.LogInformation($"User {model.Email} logged in at {DateTime.UtcNow}");
-                    return RedirectToLocal(returnUrl);
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) && returnUrl != "/")
+                    {
+                        return Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("GetHomePage", "Home");
                 }
                 
                 // If we get here, there was an error
@@ -97,7 +102,8 @@ namespace HireVault.Web.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error);
                 }
-                
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View(model);
             }
             catch (Exception ex)

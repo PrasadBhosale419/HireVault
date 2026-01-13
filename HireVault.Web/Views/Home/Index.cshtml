@@ -1,162 +1,101 @@
+﻿@model LoginViewModel
+
 @{
-    ViewData["Title"] = "HireVault - HR Document Verification Portal";
-    Layout = "_Layout";
+    ViewData["Title"] = "Log In";
+    Layout = null; // No layout
 }
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
 <div class="container-fluid">
-    <!-- Hero Section -->
-    <div class="row align-items-center hero-section py-5">
-        <div class="col-lg-6">
-            <h1 class="display-4 fw-bold mb-4">HR Document Verification Portal</h1>
-            <p class="lead mb-4">Streamline your candidate verification process with our secure document validation system.</p>
-            <div class="d-grid gap-3 d-sm-flex">
-                <a asp-controller="Dashboard"
-                   asp-action="GetAllCandidates"
-                   class="btn btn-primary btn-lg px-4 me-sm-3">
-                    View Candidates
-                </a>
-                <a asp-controller="Dashboard"
-                   asp-action="Index"
-                   class="btn btn-outline-secondary btn-lg px-4">
-                    Shortlist candidates
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-6 d-none d-lg-block">
-            <img src="~/images/document-verification.svg" alt="Document verification illustration" class="img-fluid">
-        </div>
-    </div>
+    <div class="row min-vh-100">
 
-    <!-- Stats Section -->
-    <div class="row stats-section py-5 my-5">
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-            <h2 class="display-3 fw-bold text-primary">100%</h2>
-            <p class="lead">Secure Verification</p>
-        </div>
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-            <h2 class="display-3 fw-bold text-primary">24/7</h2>
-            <p class="lead">Accessibility</p>
-        </div>
-        <div class="col-md-4 text-center">
-            <h2 class="display-3 fw-bold text-primary">99.9%</h2>
-            <p class="lead">Uptime</p>
-        </div>
-    </div>
+        <!-- LEFT SECTION (Decorative) -->
+        <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center px-5 text-white"
+             style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
 
-    <!-- Features Section -->
-    <div class="row py-5 my-5">
-        <div class="col-12 text-center mb-5">
-            <h2 class="fw-bold">Document Verification Made Simple</h2>
-            <p class="lead text-muted">Efficient tools for HR professionals</p>
+            <h1 class="fw-bold mb-3">Welcome Back!</h1>
+            <p class="fs-5">
+                Log in to your HireVault account to manage your applications and track your progress.
+            </p>
+
+            <ul class="fs-6 mt-4">
+                <li>Secure Login</li>
+                <li>Fast Application Tracking</li>
+                <li>Verified Employers</li>
+                <li>Real-Time Notifications</li>
+            </ul>
         </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-file-earmark-check text-primary" style="font-size: 2rem;"></i>
-                    </div>
-                    <h4 class="h5 fw-bold">Document Validation</h4>
-                    <p class="text-muted">Verify the authenticity of candidate documents with our comprehensive validation tools.</p>
+
+        <!-- RIGHT SECTION (Form) -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light">
+            <div class="card shadow-lg border-0 w-100" style="max-width: 520px;">
+                <div class="card-body p-5">
+
+                    <h3 class="fw-bold text-center mb-4">
+                        Log In
+                    </h3>
+
+                    <form method="post"
+                          asp-controller="Account"
+                          asp-action="Login"
+                          asp-route-returnurl="@ViewData["ReturnUrl"]"
+                          class="needs-validation"
+                          novalidate>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Email" class="form-control form-control-lg" autocomplete="username" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label fw-semibold"></label>
+                            <input asp-for="Password" class="form-control form-control-lg" autocomplete="current-password" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" asp-for="RememberMe" />
+                            <label class="form-check-label fw-semibold" asp-for="RememberMe"></label>
+                        </div>
+
+                        <div class="d-grid mt-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Log In
+                            </button>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            Don't have an account? <a asp-controller="Account" asp-action="SignUp">Sign Up</a>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-shield-lock text-primary" style="font-size: 2rem;"></i>
-                    </div>
-                    <h4 class="h5 fw-bold">Secure Storage</h4>
-                    <p class="text-muted">All documents are stored securely with enterprise-grade encryption.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-graph-up text-primary" style="font-size: 2rem;"></i>
-                    </div>
-                    <h4 class="h5 fw-bold">Analytics Dashboard</h4>
-                    <p class="text-muted">Track verification status and generate detailed reports.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- CTA Section -->
-    <div class="row py-5 my-5 bg-light rounded-3">
-        <div class="col-12 text-center">
-            <h2 class="fw-bold mb-4">Ready to streamline your verification process?</h2>
-            <p class="lead mb-4">Experience the future of HR document verification today.</p>
-            <a href="/Account/Login" class="btn btn-primary btn-lg px-5">Login to Get Started</a>
-        </div>
     </div>
 </div>
 
-@section Styles {
-    <style>
-        .hero-section {
-            min-height: 70vh;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-        }
-        .stats-section {
-            background-color: #f8f9fa;
-            border-radius: 0.5rem;
-        }
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(13, 110, 253, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-        }
-    </style>
-}
-
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add animations
-            const animateOnScroll = (elements) => {
-                elements.forEach(element => {
-                    element.style.opacity = '0';
-                    element.style.transform = 'translateY(20px)';
-                    element.style.transition = 'all 0.6s ease-out';
-                });
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                elements.forEach(element => observer.observe(element));
-            };
-
-            // Animate stats and features
-            const stats = document.querySelectorAll('.stats-section h2, .feature-icon, .card');
-            animateOnScroll(stats);
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (() => {
+        'use strict';
+        document.querySelectorAll('.needs-validation').forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
         });
-    </script>
-}
+    })();
+</script>

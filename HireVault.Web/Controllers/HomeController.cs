@@ -15,7 +15,12 @@ namespace HireVault.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("~/Views/Account/Login.cshtml");
+        }
+
+        public IActionResult GetHomePage() 
+        {
+            return View("~/Views/Home/GetHomePage.cshtml");
         }
 
         [Authorize]
