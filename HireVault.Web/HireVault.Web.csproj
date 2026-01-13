@@ -1,48 +1,48 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <ItemGroup>
-    <ProjectReference Include="..\HireVault.Core\HireVault.Core.csproj" />
-    <ProjectReference Include="..\HireVault.Infrastructure\HireVault.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\HireVault.Core\HireVault.Core.csproj" />
+		<ProjectReference Include="..\HireVault.Infrastructure\HireVault.Infrastructure.csproj" />
+	</ItemGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <NoWarn>NU1605</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NoWarn>NU1605</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <!-- AWS SDK -->
-    <PackageReference Include="Amazon.Extensions.CognitoAuthentication" Version="3.1.2" />
-    <PackageReference Include="AWSSDK.Core" Version="4.0.0" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.0" />
-    <PackageReference Include="AWSSDK.S3" Version="4.0.0" />
-    <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0" />
-    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="4.0.0" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.9" />
-    
-    <!-- Authentication -->
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
-    
-    <!-- Localization -->
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
-    
-    <!-- Entity Framework Core -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    
-    <!-- Other Dependencies -->
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
-    <PackageReference Include="SendGrid" Version="9.29.3" />
-</ItemGroup>
+	<ItemGroup>
+		<!-- AWS SDK -->
+		<PackageReference Include="Amazon.Extensions.CognitoAuthentication" Version="3.1.2" />
+		<PackageReference Include="AWSSDK.Core" Version="4.0.0" />
+		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.0" />
+		<PackageReference Include="AWSSDK.S3" Version="4.0.0" />
+		<PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0" />
+		<PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="4.0.0" />
+		<PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.9" />
+
+		<!-- Authentication -->
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+
+		<!-- Localization -->
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
+
+		<!-- Entity Framework Core -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<!-- Other Dependencies -->
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+		<PackageReference Include="SendGrid" Version="9.29.3" />
+	</ItemGroup>
 
 </Project>

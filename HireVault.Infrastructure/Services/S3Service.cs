@@ -63,7 +63,7 @@ public class S3Service : IS3Service
     {
         var bucketName = _configuration["AWS:BucketName"];
 
-        var prefix = $"hirevault/Candidates/{candidateId}/Documents/";
+        var prefix = $"Candidates/{candidateId}/Documents/";
 
         var request = new ListObjectsV2Request
         {
