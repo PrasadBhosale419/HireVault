@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using HireVault.Core.DTOs;
+using HireVault.Core.Entities;
 using HireVault.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -62,8 +63,7 @@ public class S3Service : IS3Service
     public async Task<List<ViewDocumentDTO>> GetCandidateDocumentsAsync(int candidateId)
     {
         var bucketName = _configuration["AWS:BucketName"];
-
-        var prefix = $"Candidates/{candidateId}/Documents/";
+        var prefix = $"Candidates/{candidateId}/";
 
         var request = new ListObjectsV2Request
         {
@@ -80,7 +80,16 @@ public class S3Service : IS3Service
 
         foreach (var obj in response.S3Objects.Where(x => !x.Key.EndsWith("/")))
         {
-            var fileName = Path.GetFileName(obj.Key);
+            // Candidates/{candidateId}/{documentType}/{fileName}
+            var keyParts = obj.Key.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+            if (keyParts.Length < 4)
+                continue;
+
+            var documentTypeString = keyParts[2]; // AadharCard, Resume, SalarySlip
+            if (!Enum.TryParse<DocumentType>(documentTypeString, true, out var documentTypeEnum))
+                continue;
+            var fileName = keyParts[3];
 
             var presignedUrl = _s3.GetPreSignedURL(new GetPreSignedUrlRequest
             {
@@ -91,14 +100,16 @@ public class S3Service : IS3Service
 
             documents.Add(new ViewDocumentDTO
             {
-                DocumentName = GetDocumentDisplayName(fileName),
+                DocumentName = GetDocumentDisplayName(documentTypeString),
                 DocumentUrl = presignedUrl,
-                ContentType = GetContentType(fileName)
+                ContentType = GetContentType(fileName),
+                DocumentType = documentTypeEnum
             });
         }
 
         return documents;
     }
+
 
 
     public async Task<Stream> GetFileAsync(string key)

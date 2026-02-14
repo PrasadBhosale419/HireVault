@@ -45,9 +45,6 @@ namespace HireVault.Web.Controllers
             return View();
         }
 
-        // =========================
-        // POST DOCUMENT UPLOAD
-        // =========================
         [AllowAnonymous]
         [HttpPost("candidates/{candidateId}/documents/upload")]
         [ValidateAntiForgeryToken]
@@ -75,7 +72,7 @@ namespace HireVault.Web.Controllers
 
                     var extension = Path.GetExtension(file.FileName);
                     var storedFileName = $"{Guid.NewGuid()}{extension}";
-                    var s3Key = $"Candidates/{candidateId}/Documents/{storedFileName}";
+                    var s3Key = $"Candidates/{candidateId}/{documentType}/{storedFileName}";
 
                     using var stream = file.OpenReadStream();
                      await _s3Service.UploadFileAsync(

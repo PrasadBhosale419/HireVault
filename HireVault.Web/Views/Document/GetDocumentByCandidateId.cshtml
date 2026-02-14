@@ -2,86 +2,134 @@
 
 @{
     ViewData["Title"] = "Candidate Documents";
-    Layout = null; // or your layout if you want
+    Layout = null;
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
+<style>
+    .left-panel {
+        background: linear-gradient(180deg, #1e3a8a, #312e81);
+        color: #fff;
+    }
+
+    .doc-section {
+        background: rgba(255,255,255,0.08);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 18px;
+    }
+
+    .doc-section-title {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-bottom: 10px;
+    }
+
+    .doc-item {
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-weight: 500;
+    }
+
+        .doc-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .doc-item.active {
+            background: #ffffff;
+            color: #1e3a8a;
+        }
+
+    iframe {
+        background: white;
+    }
+</style>
+
 <div class="container-fluid min-vh-100">
     <div class="row min-vh-100">
 
-        <!-- LEFT: DOCUMENT LIST -->
-        <div class="col-lg-3 border-end p-0"
-             style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+        <!-- LEFT PANEL -->
+        <div class="col-lg-3 p-4 left-panel">
 
-            <div class="p-4 text-white">
-                <h5 class="fw-bold mb-3">Uploaded Documents</h5>
+            <h5 class="fw-bold mb-4">Uploaded Documents</h5>
 
-                <ul class="list-group list-group-flush">
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        <li class="list-group-item list-group-item-action bg-transparent text-white border-0 document-item"
-                            data-index="@i"
-                            style="cursor:pointer;">
-                            @Model[i].DocumentName
-                        </li>
-                    }
-                </ul>
+            <!-- Aadhaar -->
+            <div class="doc-section">
+                <div class="doc-section-title">Identity</div>
+                <div class="doc-item" data-type="AadharCard">
+                    Aadhaar Card
+                </div>
             </div>
+
+            <!-- Resume -->
+            <div class="doc-section">
+                <div class="doc-section-title">Profile</div>
+                <div class="doc-item" data-type="Resume">
+                    Resume
+                </div>
+            </div>
+
+            <!-- Resignation -->
+            <div class="doc-section">
+                <div class="doc-section-title">Employment</div>
+                <div class="doc-item" data-type="ResignationLetter">
+                    Resignation Letter
+                </div>
+            </div>
+
+            <!-- Salary Slips -->
+            <div class="doc-section">
+                <div class="doc-section-title">Salary Slips</div>
+
+                <div class="doc-item" data-type="SalarySlip" data-month="0">
+                    Month 1
+                </div>
+                <div class="doc-item mt-1" data-type="SalarySlip" data-month="1">
+                    Month 2
+                </div>
+                <div class="doc-item mt-1" data-type="SalarySlip" data-month="2">
+                    Month 3
+                </div>
+            </div>
+
         </div>
 
-        <!-- RIGHT: PREVIEW -->
+        <!-- RIGHT PANEL -->
         <div class="col-lg-9 p-0 bg-light">
             <div class="d-flex flex-column h-100">
 
                 <!-- TOP BAR -->
                 <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-white">
                     <h5 class="mb-0 fw-bold" id="docTitle">
-                        @Model.FirstOrDefault()?.DocumentName
+                        Select a document
                     </h5>
 
                     <a id="downloadSingle"
-                       href="@Model.FirstOrDefault()?.DocumentUrl"
+                       href="#"
                        class="btn btn-outline-primary"
-                       download>
+                       download
+                       style="display:none;">
                         Download
                     </a>
                 </div>
 
-                <!-- DOCUMENT PREVIEW -->
+                <!-- PREVIEW -->
                 <div class="flex-grow-1 p-4 bg-secondary-subtle">
                     <iframe id="docPreview"
-                            src="@Model.FirstOrDefault()?.DocumentUrl"
-                            class="w-100 h-100 border rounded"
-                            style="background:white;">
+                            class="w-100 h-100 rounded shadow-sm">
                     </iframe>
                 </div>
 
-                <!-- BOTTOM ACTIONS -->
-                <div class="px-4 py-3 border-top bg-white d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <button class="btn btn-outline-secondary me-2" id="prevBtn">
-                            ← Back
-                        </button>
-                        <button class="btn btn-outline-secondary" id="nextBtn">
-                            Next →
-                        </button>
-                    </div>
-
-                    <div class="text-end">
-                        <a asp-action="DownloadAll"
-                           asp-route-candidateId="@ViewBag.CandidateId"
-                           class="btn btn-outline-primary mb-2">
-                            Download All as ZIP
-                        </a>
-
-                        <br />
-
-                        <button class="btn btn-success d-none" id="verifyBtn">
-                            Verify Documents
-                        </button>
-                    </div>
+                <!-- FOOTER -->
+                <div class="px-4 py-3 border-top bg-white d-flex justify-content-end">
+                    <button class="btn btn-success d-none" id="verifyBtn">
+                        Verify Documents
+                    </button>
                 </div>
 
             </div>
@@ -92,44 +140,53 @@
 
 <script>
     const documents = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
-    let currentIndex = 0;
+
+    const documentTypeEnum = {
+        AadharCard: 0,
+        Resume: 1,
+        ResignationLetter: 2,
+        SalarySlip: 3
+    };
+
+    const documentDisplayNames = {
+        AadharCard: "Aadhaar Card",
+        Resume: "Resume",
+        ResignationLetter: "Resignation Letter",
+        SalarySlip: "Salary Slip"
+    };
 
     const title = document.getElementById("docTitle");
     const preview = document.getElementById("docPreview");
     const downloadSingle = document.getElementById("downloadSingle");
-    const verifyBtn = document.getElementById("verifyBtn");
 
-    function loadDocument(index) {
-        currentIndex = index;
-        const doc = documents[index];
+    function loadByType(type, monthIndex = null) {
 
-        title.innerText = doc.documentName;
-        preview.src = doc.documentUrl;
-        downloadSingle.href = doc.documentUrl;
+        document.querySelectorAll(".doc-item").forEach(i => i.classList.remove("active"));
 
-        // Show verify button only on last document
-        if (index === documents.length - 1) {
-            verifyBtn.classList.remove("d-none");
-        } else {
-            verifyBtn.classList.add("d-none");
+        const enumValue = documentTypeEnum[type];
+        let filteredDocs = documents.filter(d => d.DocumentType === enumValue);
+
+        if (!filteredDocs.length) {
+            alert("Document not found");
+            return;
         }
+
+        let doc = type === "SalarySlip"
+            ? filteredDocs[monthIndex]
+            : filteredDocs[0];
+
+        title.innerText = documentDisplayNames[type];
+        preview.src = doc.DocumentUrl;
+        downloadSingle.href = doc.DocumentUrl;
+        downloadSingle.style.display = "inline-block";
     }
 
-    document.querySelectorAll(".document-item").forEach(item => {
+    document.querySelectorAll(".doc-item").forEach(item => {
         item.addEventListener("click", () => {
-            loadDocument(parseInt(item.dataset.index));
+            item.classList.add("active");
+            const type = item.dataset.type;
+            const month = item.dataset.month;
+            loadByType(type, month !== undefined ? parseInt(month) : null);
         });
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-        if (currentIndex < documents.length - 1) {
-            loadDocument(currentIndex + 1);
-        }
-    });
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-        if (currentIndex > 0) {
-            loadDocument(currentIndex - 1);
-        }
     });
 </script>

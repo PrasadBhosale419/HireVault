@@ -50,7 +50,8 @@ namespace HireVault.Web.Controllers
             {
                 DocumentName = d.DocumentName,
                 DocumentUrl = d.DocumentUrl,
-                ContentType = d.ContentType
+                ContentType = d.ContentType,
+                DocumentType = d.DocumentType
             }).ToList();
 
             return View(docObjects);
