@@ -5,188 +5,326 @@
     Layout = null;
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html>
+<head>
 
-<style>
-    .left-panel {
-        background: linear-gradient(180deg, #1e3a8a, #312e81);
-        color: #fff;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Candidate Documents</title>
 
-    .doc-section {
-        background: rgba(255,255,255,0.08);
-        border-radius: 12px;
-        padding: 14px;
-        margin-bottom: 18px;
-    }
+    <!-- HARDCODED BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    .doc-section-title {
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        opacity: 0.8;
-        margin-bottom: 10px;
-    }
-
-    .doc-item {
-        padding: 10px 14px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-weight: 500;
-    }
-
-        .doc-item:hover {
-            background: rgba(255,255,255,0.15);
+    <style>
+        .left-panel {
+            background: linear-gradient(180deg, #1e3a8a, #312e81);
+            color: #fff;
         }
 
-        .doc-item.active {
-            background: #ffffff;
-            color: #1e3a8a;
+        .doc-section {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 18px;
         }
 
-    iframe {
-        background: white;
-    }
-</style>
+        .doc-section-title {
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
 
-<div class="container-fluid min-vh-100">
-    <div class="row min-vh-100">
+        .doc-item {
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
 
-        <!-- LEFT PANEL -->
-        <div class="col-lg-3 p-4 left-panel">
+            .doc-item:hover {
+                background: rgba(255,255,255,0.15);
+            }
 
-            <h5 class="fw-bold mb-4">Uploaded Documents</h5>
+            .doc-item.active {
+                background: #ffffff;
+                color: #1e3a8a;
+            }
 
-            <!-- Aadhaar -->
-            <div class="doc-section">
-                <div class="doc-section-title">Identity</div>
-                <div class="doc-item" data-type="AadharCard">
-                    Aadhaar Card
+        iframe {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid min-vh-100">
+        <div class="row min-vh-100">
+
+            <!-- LEFT PANEL (UNCHANGED) -->
+            <div class="col-lg-3 p-4 left-panel">
+
+                <h5 class="fw-bold mb-4">Uploaded Documents</h5>
+
+                <div class="doc-section">
+                    <div class="doc-section-title">Identity</div>
+                    <div class="doc-item" data-type="AadharCard">Aadhaar Card</div>
                 </div>
+
+                <div class="doc-section">
+                    <div class="doc-section-title">Profile</div>
+                    <div class="doc-item" data-type="Resume">Resume</div>
+                </div>
+
+                <div class="doc-section">
+                    <div class="doc-section-title">Employment</div>
+                    <div class="doc-item" data-type="ResignationLetter">Resignation Letter</div>
+                </div>
+
+                <div class="doc-section">
+                    <div class="doc-section-title">Salary Slips</div>
+                    <div class="doc-item" data-type="SalarySlip" data-month="0">Month 1</div>
+                    <div class="doc-item mt-1" data-type="SalarySlip" data-month="1">Month 2</div>
+                    <div class="doc-item mt-1" data-type="SalarySlip" data-month="2">Month 3</div>
+                </div>
+
             </div>
 
-            <!-- Resume -->
-            <div class="doc-section">
-                <div class="doc-section-title">Profile</div>
-                <div class="doc-item" data-type="Resume">
-                    Resume
-                </div>
-            </div>
+            <!-- RIGHT PANEL -->
+            <div class="col-lg-9 p-0 bg-light">
+                <div class="d-flex flex-column h-100">
 
-            <!-- Resignation -->
-            <div class="doc-section">
-                <div class="doc-section-title">Employment</div>
-                <div class="doc-item" data-type="ResignationLetter">
-                    Resignation Letter
-                </div>
-            </div>
+                    <!-- TOP BAR -->
+                    <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-white">
+                        <h5 class="mb-0 fw-bold" id="docTitle">
+                            Select a document
+                        </h5>
 
-            <!-- Salary Slips -->
-            <div class="doc-section">
-                <div class="doc-section-title">Salary Slips</div>
+                        <a id="downloadSingle"
+                           href="#"
+                           class="btn btn-outline-primary"
+                           download
+                           style="display:none;">
+                            Download
+                        </a>
+                    </div>
 
-                <div class="doc-item" data-type="SalarySlip" data-month="0">
-                    Month 1
-                </div>
-                <div class="doc-item mt-1" data-type="SalarySlip" data-month="1">
-                    Month 2
-                </div>
-                <div class="doc-item mt-1" data-type="SalarySlip" data-month="2">
-                    Month 3
+                    <!-- PREVIEW -->
+                    <div class="flex-grow-1 p-4 bg-secondary-subtle">
+                        <iframe id="docPreview"
+                                class="w-100 h-100 rounded shadow-sm">
+                        </iframe>
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="px-4 py-3 border-top bg-white d-flex justify-content-between align-items-center">
+
+                        <button class="btn btn-outline-secondary" id="backBtn">
+                            Back
+                        </button>
+
+                        <div class="d-flex gap-2">
+
+                            <button class="btn btn-danger d-none" id="rejectBtn">
+                                Reject
+                            </button>
+
+                            <button class="btn btn-warning d-none" id="pendingBtn">
+                                Pending
+                            </button>
+
+                            <button class="btn btn-success d-none" id="verifyBtn">
+                                Verify
+                            </button>
+
+                            <button class="btn btn-primary" id="nextBtn">
+                                Next
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
         </div>
-
-        <!-- RIGHT PANEL -->
-        <div class="col-lg-9 p-0 bg-light">
-            <div class="d-flex flex-column h-100">
-
-                <!-- TOP BAR -->
-                <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-white">
-                    <h5 class="mb-0 fw-bold" id="docTitle">
-                        Select a document
-                    </h5>
-
-                    <a id="downloadSingle"
-                       href="#"
-                       class="btn btn-outline-primary"
-                       download
-                       style="display:none;">
-                        Download
-                    </a>
-                </div>
-
-                <!-- PREVIEW -->
-                <div class="flex-grow-1 p-4 bg-secondary-subtle">
-                    <iframe id="docPreview"
-                            class="w-100 h-100 rounded shadow-sm">
-                    </iframe>
-                </div>
-
-                <!-- FOOTER -->
-                <div class="px-4 py-3 border-top bg-white d-flex justify-content-end">
-                    <button class="btn btn-success d-none" id="verifyBtn">
-                        Verify Documents
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
     </div>
-</div>
 
-<script>
-    const documents = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+    <!-- Pending Modal -->
+    <div class="modal fade" id="pendingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-    const documentTypeEnum = {
-        AadharCard: 0,
-        Resume: 1,
-        ResignationLetter: 2,
-        SalarySlip: 3
-    };
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter Pending Reason</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-    const documentDisplayNames = {
-        AadharCard: "Aadhaar Card",
-        Resume: "Resume",
-        ResignationLetter: "Resignation Letter",
-        SalarySlip: "Salary Slip"
-    };
+                <div class="modal-body">
+                    <textarea id="pendingRemarks"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Enter what is missing or wrong..."></textarea>
+                </div>
 
-    const title = document.getElementById("docTitle");
-    const preview = document.getElementById("docPreview");
-    const downloadSingle = document.getElementById("downloadSingle");
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" id="submitPending">Submit</button>
+                </div>
 
-    function loadByType(type, monthIndex = null) {
+            </div>
+        </div>
+    </div>
 
-        document.querySelectorAll(".doc-item").forEach(i => i.classList.remove("active"));
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        const enumValue = documentTypeEnum[type];
-        let filteredDocs = documents.filter(d => d.DocumentType === enumValue);
+    <script>
 
-        if (!filteredDocs.length) {
-            alert("Document not found");
-            return;
+        const documents = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+        const candidateId = @ViewBag.CandidateId;
+
+        const navigationOrder = [
+            { type: "AadharCard", month: null },
+            { type: "Resume", month: null },
+            { type: "ResignationLetter", month: null },
+            { type: "SalarySlip", month: 0 },
+            { type: "SalarySlip", month: 1 },
+            { type: "SalarySlip", month: 2 }
+        ];
+
+        let currentIndex = 0;
+
+        const title = document.getElementById("docTitle");
+        const preview = document.getElementById("docPreview");
+        const downloadSingle = document.getElementById("downloadSingle");
+
+        const backBtn = document.getElementById("backBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const verifyBtn = document.getElementById("verifyBtn");
+        const rejectBtn = document.getElementById("rejectBtn");
+        const pendingBtn = document.getElementById("pendingBtn");
+
+        const documentTypeEnum = {
+            AadharCard: 0,
+            Resume: 1,
+            ResignationLetter: 2,
+            SalarySlip: 3
+        };
+
+        function loadDocument(type, month) {
+
+            document.querySelectorAll(".doc-item")
+                .forEach(i => i.classList.remove("active"));
+
+            const enumValue = documentTypeEnum[type];
+            let filtered = documents.filter(d => d.DocumentType === enumValue);
+
+            if (!filtered.length) return;
+
+            let doc = type === "SalarySlip"
+                ? filtered[month]
+                : filtered[0];
+
+            if (!doc) return;
+
+            title.innerText = type;
+            preview.src = doc.DocumentUrl;
+            downloadSingle.href = doc.DocumentUrl;
+            downloadSingle.style.display = "inline-block";
+
+            if (type === "SalarySlip" && month === 2) {
+                verifyBtn.classList.remove("d-none");
+                rejectBtn.classList.remove("d-none");
+                pendingBtn.classList.remove("d-none");
+                nextBtn.classList.add("d-none");
+            } else {
+                verifyBtn.classList.add("d-none");
+                rejectBtn.classList.add("d-none");
+                pendingBtn.classList.add("d-none");
+                nextBtn.classList.remove("d-none");
+            }
+
+            backBtn.disabled = currentIndex === 0;
         }
 
-        let doc = type === "SalarySlip"
-            ? filteredDocs[monthIndex]
-            : filteredDocs[0];
+        function navigate(index) {
+            if (index < 0 || index >= navigationOrder.length) return;
+            currentIndex = index;
+            const item = navigationOrder[index];
+            loadDocument(item.type, item.month);
+        }
 
-        title.innerText = documentDisplayNames[type];
-        preview.src = doc.DocumentUrl;
-        downloadSingle.href = doc.DocumentUrl;
-        downloadSingle.style.display = "inline-block";
-    }
+        nextBtn.onclick = () => navigate(currentIndex + 1);
+        backBtn.onclick = () => navigate(currentIndex - 1);
 
-    document.querySelectorAll(".doc-item").forEach(item => {
-        item.addEventListener("click", () => {
-            item.classList.add("active");
-            const type = item.dataset.type;
-            const month = item.dataset.month;
-            loadByType(type, month !== undefined ? parseInt(month) : null);
+        async function updateStatus(url) {
+
+            const formData = new URLSearchParams();
+            formData.append("candidateId", candidateId);
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert("Status Updated Successfully");
+                window.location.href = "/Document";
+            }
+        }
+
+        verifyBtn.onclick = () => updateStatus("/Document/VerifyDocument");
+        rejectBtn.onclick = () => updateStatus("/Document/RejectDocument");
+
+        const pendingModal = new bootstrap.Modal(document.getElementById('pendingModal'));
+
+        pendingBtn.onclick = function () {
+            document.getElementById("pendingRemarks").value = "";
+            pendingModal.show();
+        };
+
+        document.getElementById("submitPending").onclick = async function () {
+
+            const remarks = document.getElementById("pendingRemarks").value.trim();
+
+            if (!remarks) {
+                alert("Please enter remarks before submitting.");
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            formData.append("candidateId", candidateId);
+            formData.append("remarks", remarks);
+
+            const response = await fetch('/Document/PendingApplicant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                pendingModal.hide();
+                alert("Applicant marked as Pending.");
+                window.location.href = "/Document";
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            navigate(0);
         });
-    });
-</script>
+
+    </script>
+
+</body>
+</html>

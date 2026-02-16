@@ -24,5 +24,15 @@ namespace HireVault.Core.Entities
         public string Email { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public ApplicantStatus Status { get; set; }
+    }
+
+    public enum ApplicantStatus 
+    {
+        Active,
+        Pending,
+        Rejected,
+        Verified
     }
 }

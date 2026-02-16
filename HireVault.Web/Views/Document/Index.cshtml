@@ -1,93 +1,268 @@
-﻿@model IEnumerable<HireVault.Web.Models.ViewModels.CandidateDocumentsIndexViewModel>
+﻿@using HireVault.Core.Entities
+@model IEnumerable<HireVault.Web.Models.ViewModels.CandidateDocumentsIndexViewModel>
 
 @{
     ViewData["Title"] = "Candidate Documents - HireVault";
     Layout = "_Layout";
+
+    var active = Model.Where(x => x.Status == ApplicantStatus.Active);
+    var verified = Model.Where(x => x.Status == ApplicantStatus.Verified);
+    var pending = Model.Where(x => x.Status == ApplicantStatus.Pending);
+    var rejected = Model.Where(x => x.Status == ApplicantStatus.Rejected);
 }
 
-<div class="container-fluid">
+<div class="container-fluid px-4">
 
     <!-- Page Header -->
-    <div class="row py-4">
-        <div class="col-12 text-center">
-            <h1 class="fw-bold text-primary">Candidate Documents</h1>
-            <p class="lead text-muted">View all candidates who have uploaded documents</p>
+    <div class="text-center my-4">
+        <h2 class="fw-bold">Candidate Documents</h2>
+        <p class="text-muted mb-0">Review applicants grouped by status</p>
+        <hr class="w-25 mx-auto mt-3" />
+    </div>
+
+    <!-- ACTIVE SECTION -->
+    <div class="mb-5">
+        <div class="section-header active-header">
+            <span>Active Applicants</span>
+        </div>
+
+        <div class="row mt-4">
+            @if (active.Any())
+            {
+                @foreach (var candidate in active)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card candidate-card">
+                            <div class="card-body">
+                                <h5 class="candidate-name">@candidate.FullName</h5>
+                                <p class="upload-date">
+                                    Uploaded: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
+                                </p>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="/document/getdocument/@candidate.CandidateId"
+                                       class="btn btn-dark btn-sm">
+                                        View Documents
+                                    </a>
+
+                                    <form asp-controller="Document"
+                                          asp-action="Delete"
+                                          asp-route-id="@candidate.CandidateId"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
+                                        <button type="submit" class="btn btn-outline-dark btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No active applicants available.</p>
+            }
         </div>
     </div>
 
-    <!-- Candidate Cards -->
-    <div class="row">
-        @foreach (var candidate in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-0 shadow-sm candidate-card">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">@candidate.FullName</h5>
-                        <p class="text-muted mb-2">
-                            Uploaded At: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            <a href="/document/getdocument/@candidate.CandidateId"
-                               class="btn btn-primary">
-                                View Documents
-                            </a>
-                            <form asp-controller="Document"
-                                  asp-action="Delete"
-                                  asp-route-id="@candidate.CandidateId"
-                                  method="post"
-                                  onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                            </form>
+    <!-- VERIFIED SECTION -->
+    <div class="mb-5">
+        <div class="section-header verified-header">
+            <span>Verified Applicants</span>
+        </div>
+
+        <div class="row mt-4">
+            @if (verified.Any())
+            {
+                @foreach (var candidate in verified)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card candidate-card">
+                            <div class="card-body">
+                                <h5 class="candidate-name">@candidate.FullName</h5>
+                                <p class="upload-date">
+                                    Uploaded: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
+                                </p>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="/document/getdocument/@candidate.CandidateId"
+                                       class="btn btn-dark btn-sm">
+                                        View Documents
+                                    </a>
+
+                                    <form asp-controller="Document"
+                                          asp-action="Delete"
+                                          asp-route-id="@candidate.CandidateId"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
+                                        <button type="submit" class="btn btn-outline-dark btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        }
+                }
+            }
+            else
+            {
+                <p class="text-muted">No verified applicants available.</p>
+            }
+        </div>
     </div>
+
+    <!-- PENDING SECTION -->
+    <div class="mb-5">
+        <div class="section-header pending-header">
+            <span>Pending Applicants</span>
+        </div>
+
+        <div class="row mt-4">
+            @if (pending.Any())
+            {
+                @foreach (var candidate in pending)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card candidate-card">
+                            <div class="card-body">
+                                <h5 class="candidate-name">@candidate.FullName</h5>
+                                <p class="upload-date">
+                                    Uploaded: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
+                                </p>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="/document/getdocument/@candidate.CandidateId"
+                                       class="btn btn-dark btn-sm">
+                                        View Documents
+                                    </a>
+
+                                    <form asp-controller="Document"
+                                          asp-action="Delete"
+                                          asp-route-id="@candidate.CandidateId"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
+                                        <button type="submit" class="btn btn-outline-dark btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No pending applicants available.</p>
+            }
+        </div>
+    </div>
+
+    <!-- REJECTED SECTION -->
+    <div class="mb-5">
+        <div class="section-header rejected-header">
+            <span>Rejected Applicants</span>
+        </div>
+
+        <div class="row mt-4">
+            @if (rejected.Any())
+            {
+                @foreach (var candidate in rejected)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card candidate-card">
+                            <div class="card-body">
+                                <h5 class="candidate-name">@candidate.FullName</h5>
+                                <p class="upload-date">
+                                    Uploaded: @candidate.UploadedAt.ToString("dd MMM yyyy, hh:mm tt")
+                                </p>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="/document/getdocument/@candidate.CandidateId"
+                                       class="btn btn-dark btn-sm">
+                                        View Documents
+                                    </a>
+
+                                    <form asp-controller="Document"
+                                          asp-action="Delete"
+                                          asp-route-id="@candidate.CandidateId"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this candidate\'s documents?');">
+                                        <button type="submit" class="btn btn-outline-dark btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No rejected applicants available.</p>
+            }
+        </div>
+    </div>
+
 </div>
 
 @section Styles {
     <style>
-        .candidate-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem;
+        .section-header {
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e5e5e5;
         }
 
-            .candidate-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-            }
-
-        .card-title {
+        .active-header {
             color: #0d6efd;
         }
 
-        .btn-sm {
-            font-size: 0.85rem;
+        .verified-header {
+            color: #2e7d32;
         }
+
+        .pending-header {
+            color: #b26a00;
+        }
+
+        .rejected-header {
+            color: #c62828;
+        }
+
+        .candidate-card {
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.25s ease;
+        }
+
+            .candidate-card:hover {
+                box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+                transform: translateY(-3px);
+            }
+
+        .candidate-name {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .upload-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+        }
+
+            .btn-dark:hover {
+                background-color: #212529;
+            }
     </style>
-}
-
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.candidate-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s ease-out';
-            });
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            cards.forEach(card => observer.observe(card));
-        });
-    </script>
 }
