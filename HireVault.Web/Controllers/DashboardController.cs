@@ -1,8 +1,10 @@
 ﻿using HireVault.Core.Entities;
 using HireVault.Infrastructure.Data;
+using HireVault.Web.Models.ViewModels;
 using HireVault.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HireVault.Web.Controllers
 {
@@ -19,9 +21,28 @@ namespace HireVault.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var totalApplicants = await _dbContext.Applicants.CountAsync();
+
+            var pendingCount = await _dbContext.Applicants
+                .CountAsync(a => a.Status == ApplicantStatus.Pending);
+
+            var verifiedCount = await _dbContext.Applicants
+                .CountAsync(a => a.Status == ApplicantStatus.Verified);
+
+            var shortlistedCount = await _dbContext.Applicants
+                .CountAsync(a => a.Status == ApplicantStatus.Active);
+
+            var model = new DashboardViewModel
+            {
+                TotalApplicants = totalApplicants,
+                PendingCount = pendingCount,
+                VerifiedCount = verifiedCount,
+                ShortlistedCount = shortlistedCount
+            };
+
+            return View(model);
         }
 
         [HttpPost]

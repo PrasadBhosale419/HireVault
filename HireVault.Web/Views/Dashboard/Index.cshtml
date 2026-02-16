@@ -1,3 +1,5 @@
+@model HireVault.Web.Models.ViewModels.DashboardViewModel
+
 @{
     ViewData["Title"] = "Dashboard - HireVault";
     Layout = "_Layout";
@@ -17,17 +19,24 @@
 
     <!-- Stats Section -->
     <div class="row stats-section py-5 my-5">
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-            <h2 class="display-4 fw-bold text-primary">120</h2>
-            <p class="lead">Total Candidates</p>
+        <div class="col-md-3 text-center mb-4 mb-md-0">
+            <h2 class="display-4 fw-bold text-primary">@Model.TotalApplicants</h2>
+            <p class="lead">Total Applicants</p>
         </div>
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-            <h2 class="display-4 fw-bold text-primary">45</h2>
+
+        <div class="col-md-3 text-center mb-4 mb-md-0">
+            <h2 class="display-4 fw-bold text-warning">@Model.PendingCount</h2>
+            <p class="lead">Pending</p>
+        </div>
+
+        <div class="col-md-3 text-center mb-4 mb-md-0">
+            <h2 class="display-4 fw-bold text-success">@Model.VerifiedCount</h2>
             <p class="lead">Verified</p>
         </div>
-        <div class="col-md-4 text-center">
-            <h2 class="display-4 fw-bold text-primary">18</h2>
-            <p class="lead">Shortlisted</p>
+
+        <div class="col-md-3 text-center">
+            <h2 class="display-4 fw-bold text-dark">@Model.ShortlistedCount</h2>
+            <p class="lead">Active/To be reviewed</p>
         </div>
     </div>
 
@@ -85,6 +94,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 @section Styles {
