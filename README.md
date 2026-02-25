@@ -1,6 +1,5 @@
 # HireVault
 A web app to help HR to store the data for the candidate that needs to be onboarded and to track his/her onboarding status.
-<img width="1918" height="868" alt="SignIn" src="https://github.com/user-attachments/assets/9b3e5b2a-ce11-42c8-87b7-9eddd3ba706c" /
 <img width="1918" height="867" alt="PendingReason" src="https://github.com/user-attachments/assets/2f703200-913f-47e9-8190-721a60d382ed" />
 <img width="1902" height="867" alt="HomePage2" src="https://github.com/user-attachments/assets/63b02afd-b419-450e-8a66-10a0160fe257" />
 <img width="1918" height="865" alt="HomePage" src="https://github.com/user-attachments/assets/d12d8a4f-dbea-4ebb-9748-ae9a7bbd4bdf" />
